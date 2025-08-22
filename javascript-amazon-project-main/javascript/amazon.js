@@ -45,16 +45,48 @@ products.forEach((product)=>{
           <div class="added-to-cart">
             <img src="images/icons/checkmark.png">
             Added
-          </div>
+        </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary" data-product-id=${product.id}>
             Add to Cart
           </button>
         </div>
     `;
 });
-
+// data-product-id=${product.id} -----way to get data from the button or a data attribute
 
 document.querySelector(".js-products-grid").innerHTML = productHtml;
+
+    document.querySelectorAll(".add-to-cart-button").forEach((button)=>{
+    button.addEventListener("click",()=>{
+    const productId= button.dataset.productId;
+
+    let founditems="";
+
+    cart.forEach((item)=>{
+        if(item.productId===productId){
+            founditems=item;
+        }
+    })
+
+    if(founditems){
+        founditems.quantity+=1;
+    }
+    else{
+        cart.push({
+        productId:productId,
+        quantity:1
+    }); 
+    }
+  let cartQantity=0;
+   cart.forEach((item)=>{
+    cartQantity+=item.quantity;
+   });
+   
+document.querySelector(".js-cart-quantity").innerHTML=cartQantity;
+    });
+})
+
+
 
 
