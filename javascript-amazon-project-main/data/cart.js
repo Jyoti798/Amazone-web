@@ -1,4 +1,4 @@
-export const cart= JSON.parse(localStorage.getItem("cart"))||
+export let cart= JSON.parse(localStorage.getItem("cart"))||
 [{
     productId:"e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     quantity:1
@@ -40,3 +40,15 @@ export function updateCartQuantity(){
    
       saveCart()
 }
+
+export function removeItemFromCart(productId){
+    let newCart=[];
+    cart.forEach((item)=>{
+        if(item.productId!=productId){
+            newCart.push(item);
+        }
+    })
+    cart=newCart;
+    saveCart();
+}
+
